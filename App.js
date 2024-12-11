@@ -1,39 +1,18 @@
 // App.js
 
-import * as React from 'react';
 import { useFonts } from 'expo-font';
-import AppLoading from 'expo-app-loading';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-
-import MainScreen from './components/MainScreen';
-// import other screens like SignupScreen, ForgotPasswordScreen, LearnScreen
-
-const Stack = createStackNavigator();
+import AppNavigator from './src/navigation/AppNavigator';
+import LoadingIndicator from './src/components/LoadingIndicator';
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
-    'Delius Swash Caps': require('./assets/fonts/DeliusSwashCaps-Regular.ttf'),
-    'Open Sans': require('./assets/fonts/OpenSans-VariableFont_wdth,wght.ttf'),
+  const [fontsLoaded] = useFonts({
+    // 'Delius Swash Caps': require('./src/assets/fonts/delius_swash_caps.ttf'),
+    // 'Open Sans': require('./src/assets/fonts/OpenSans-VariableFont_wdth,wght.ttf'),
   });
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <LoadingIndicator />;
   }
 
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Main">
-        <Stack.Screen
-          name="Main"
-          component={MainScreen}
-          options={{ headerShown: false }}
-        />
-        {/* Define other screens here */}
-        {/* <Stack.Screen name="Signup" component={SignupScreen} /> */}
-        {/* <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} /> */}
-        {/* <Stack.Screen name="Learn" component={LearnScreen} /> */}
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  return <AppNavigator />;
 }
